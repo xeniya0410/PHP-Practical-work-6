@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка CSV для анализа фильмов</title>
+</head>
+
+<body>
+    <h1>Загрузка файла с фильмами (CSV)</h1>
+
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+
+        <label for="csv_file">Выберите CSV-файл (*.csv):</label>
+        <input type="file" name="csv_file" id="csv_file" accept=".csv" required><br><br>
+
+        <label for="user_name">Ваше имя (необязательно):</label>
+        <input type="text" name="user_name" id="user_name"><br><br>
+
+        <button type="submit" name="submit">Загрузить и анализировать</button>
+    </form>
+
+</body>
+
+</html>
