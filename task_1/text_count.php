@@ -1,7 +1,6 @@
 <?php
 
 // 1. Укажите переменную и передайте ей значение пути к файлу. 
-// Замените на фактический путь, например, 'src/txt/pg41445.txt'
 $filePath = 'C:\Users\Lenovo\Desktop\src\task_1\text\pg16.txt';
 
 
@@ -49,3 +48,4 @@ if (!file_exists($filePath)) {
 
 
 ?>
+
