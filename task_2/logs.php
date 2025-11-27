@@ -24,11 +24,7 @@ switch ($method) {
 // 3. Функция filterLogs($filename, $method)
 /**
  * Фильтрует лог-файл по HTTP-методу и записывает результат в новый файл.
- *
- * @param string $filename Путь к исходному лог-файлу.
- * @param string $method Метод для фильтрации (GET или POST).
- * @return int|false Количество записанных строк или FALSE в случае ошибки.
- */
+
 function filterLogs($filename, $method)
 {
     // Определяем имя выходного файла
@@ -58,7 +54,6 @@ function filterLogs($filename, $method)
     $searchPattern1 = " " . $method . " "; // Пробел + Метод + Пробел
     $searchPattern2 = "\"" . $method . " "; // Кавычка + Метод + Пробел
 
-    // И измените условие:
     foreach ($lines as $line) {
         if (str_contains($line, $searchPattern1) || str_contains($line, $searchPattern2)) {
             fwrite($fp_out, $line . PHP_EOL);
@@ -84,5 +79,6 @@ if ($lineCount !== false) {
     // 5. После вызова функции, выведите сообщение с подсчётом строк
     echo "Файл [{$targetFile}] был создан. В нём содержится **{$lineCount}** строк(и)." . PHP_EOL;
 }
+
 
 ?>
