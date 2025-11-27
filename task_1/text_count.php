@@ -4,12 +4,7 @@
 // Замените на фактический путь, например, 'src/txt/pg41445.txt'
 $filePath = 'C:\Users\Lenovo\Desktop\src\task_1\text\pg16.txt';
 
-/**
- * Подсчитывает количество слов в файле.
- *
- * @param string $file Путь к файлу.
- * @return int|false Количество слов или FALSE в случае ошибки.
- */
+
 function countWords($file)
 {
     // 1. Открывать файл для чтения.
@@ -18,7 +13,7 @@ function countWords($file)
 
     // Проверка успешности открытия файла
     if (!$fp) {
-        // В реальном приложении можно добавить более детальное логгирование
+    
         return false;
     }
 
@@ -50,6 +45,7 @@ if (!file_exists($filePath)) {
         echo "Ошибка: Не удалось открыть файл **{$filePath}** для чтения." . PHP_EOL;
     }
 }
+
 
 
 ?>
