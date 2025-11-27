@@ -1,5 +1,4 @@
 <?php
-// --- Настройки и вспомогательные функции ---
 
 // Устанавливаем часовой пояс для корректного отображения даты
 date_default_timezone_set('Asia/Almaty');
@@ -29,7 +28,7 @@ function format_bytes($bytes)
     }
 }
 
-// --- 1. Проверка GET-параметра и загрузка данных ---
+// 1. Проверка GET-параметра и загрузка данных
 
 if (!isset($_GET['file'])) {
     die_with_error("Не указан файл для анализа. Пожалуйста, загрузите его через форму.");
@@ -63,7 +62,7 @@ if (($handle = fopen($uploadedFilePath, "r")) !== FALSE) {
 
 $numRows = count($data);
 $numCols = count($header);
-// --- 2. Функция для выполнения всех подсчётов ---
+// 2. Функция для выполнения всех подсчётов
 
 function analyze_csv($data, $header)
 {
@@ -131,7 +130,7 @@ function analyze_csv($data, $header)
 
 $analysis = analyze_csv($data, $header);
 
-// --- 3. Функция для реализации фильтрации ---
+// 3. Функция для реализации фильтрации
 
 function filter_data($data, $filterType)
 {
@@ -202,7 +201,7 @@ if ($selectedFilter) {
     $filterResult = filter_data($data, $selectedFilter);
 }
 
-// --- 4. Вывод HTML и логика отображения ---
+// 4. Вывод HTML и логика отображения
 
 // Получаем информацию о файле
 $fileInfo = stat($uploadedFilePath);
@@ -355,5 +354,6 @@ $initialName = count($parts) > 1 ? $parts[1] : $originalFileName;
     <?php endif; ?>
 
 </body>
+
 
 </html>
