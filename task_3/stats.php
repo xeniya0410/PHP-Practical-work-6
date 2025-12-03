@@ -53,7 +53,7 @@ if (($handle = fopen($uploadedFilePath, "r")) !== FALSE) {
     while (($row = fgetcsv($handle, 1000, ",", '"', '\\')) !== FALSE) {
         // Убедимся, что строка имеет то же количество столбцов, что и заголовок
         if (count($row) === count($header)) {
-            $data[] = array_combine($header, $row);
+            $data[] = array_combine($header, $row); //преобразуем строки в ассоциативные массивы array_combine($header, $row) и сохраняем в $data.
         } else {
             // Игнорируем строки с неверным количеством столбцов
         }
@@ -65,12 +65,12 @@ if (($handle = fopen($uploadedFilePath, "r")) !== FALSE) {
 
 $numRows = count($data);
 $numCols = count($header);
-// 2. Функция для выполнения всех подсчётов
+//Считаем количество строк и столбцов в CSV
 
 function analyze_csv($data, $header)
 {
     $numRows = count($data);
-    $stats = [
+    $stats = [ //Создаем массив $stats для хранения результатов анализа
         'empty_cells_count' => 0,
         'runtime_sum' => 0,
         'genre_counts' => [],
@@ -88,10 +88,10 @@ function analyze_csv($data, $header)
             }
         }
         if ($hasEmptyCell) {
-            $stats['empty_cells_count']++;
+            $stats['empty_cells_count']++; //Проходим по каждой строке. Считаем строки, в которых есть пустые ячейки
         }
 
-        // b) Подсчёт продолжительности фильма (для средней) 
+        // b) Подсчёт продолжительности фильма (для средней) Суммируем продолжительность фильмов 
         if (isset($row['runtime'])) {
             // Извлекаем только число, убирая " min"
             if (preg_match('/(\d+)/', $row['runtime'], $matches)) {
@@ -99,7 +99,7 @@ function analyze_csv($data, $header)
             }
         }
 
-        // c) Подсчёт жанров 
+        // c) Разбираем жанры (если несколько через запятую), считаем количество каждого жанра
         if (isset($row['genre']) && !empty($row['genre'])) {
             // Обработка множественных жанров (например, "Crime, Drama")
             $genres = array_map('trim', explode(',', str_replace(['"', "'"], '', $row['genre'])));
@@ -110,7 +110,7 @@ function analyze_csv($data, $header)
             }
         }
 
-        // d) Подсчёт популярности режиссёров 
+        // d) Подсчёт популярности режиссёров. Считаем количество фильмов каждого режиссёра.
         if (isset($row['director']) && !empty($row['director'])) {
             $director = trim($row['director']);
             $stats['director_counts'][$director] = ($stats['director_counts'][$director] ?? 0) + 1;
@@ -204,7 +204,7 @@ if ($selectedFilter) {
     $filterResult = filter_data($data, $selectedFilter);
 }
 
-// 4. Вывод HTML и логика отображения
+// Получаем информацию о файле: размер, время последней модификации, исходное имя
 
 // Получаем информацию о файле
 $fileInfo = stat($uploadedFilePath);
@@ -315,7 +315,7 @@ $initialName = count($parts) > 1 ? $parts[1] : $originalFileName;
     <form method="GET" action="stats.php">
         <input type="hidden" name="file" value="<?php echo htmlspecialchars($uploadedFilePath); ?>">
         <label for="filter">Выберите тип фильтрации:</label>
-        <select name="filter" id="filter" onchange="this.form.submit()">
+        <select name="filter" id="filter" onchange="this.form.submit()"> <!--При выборе фильтра форма автоматически отправляется (onchange="this.form.submit()"-->
             <option value="">-- Выберите фильтр --</option>
             <option value="long_low_rating" <?php echo $selectedFilter === 'long_low_rating' ? 'selected' : ''; ?>>
                 10 самых длительных фильмов с рейтингом < 8.0 </option>
@@ -360,4 +360,5 @@ $initialName = count($parts) > 1 ? $parts[1] : $originalFileName;
 
 
 </html>
+
 
