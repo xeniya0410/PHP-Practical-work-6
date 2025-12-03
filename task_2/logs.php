@@ -3,13 +3,11 @@
 // 1. Исходный файл
 $sourceFile = 'C:\Users\Lenovo\Desktop\src\task_2\logs\access.log';
 
-// 2. Выбор метода (Дополнительное требование: ввод с клавиатуры)
+// 2. Выбор метода 
 $method = "GET";
-// Для реализации через ввод с клавиатуры в консольном скрипте можно использовать:
-// $method = readline("Введите HTTP-метод (GET или POST): ");
-// $method = strtoupper(trim($method));
 
-// Использование switch-case для выбора метода (дополнительное требование)
+
+// Использование switch-case для выбора метода. switch-case здесь используется для удобной проверки нескольких вариантов
 switch ($method) {
     case 'GET':
     case 'POST':
@@ -22,7 +20,7 @@ switch ($method) {
 // 3. Функция filterLogs($filename, $method)
 // Фильтрует лог-файл по HTTP-методу и записывает результат в новый файл.
 
-function filterLogs($filename, $method)
+function filterLogs($filename, $method) //Объявляем функцию filterLogs(), она будет возвращать количество строк, удовлетворяющих фильтру
 {
     // Определяем имя выходного файла
     $targetFile = "logs_" . strtoupper($method) . ".logs";
@@ -33,14 +31,14 @@ function filterLogs($filename, $method)
         return false;
     }
 
-    // Считываем содержимое файла построчно (используем file() для простоты, т.к. оно возвращает массив строк)
-    $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // Считываем файл в массив 
+    // Считываем содержимое файла построчно (используем file() - оно возвращает массив строк)
+    $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // Считываем файл в массив (не добавлять символы переноса строки,игнорировать пустые строки.
     if ($lines === false) {
         echo "Ошибка: Не удалось считать содержимое файла **{$filename}**." . PHP_EOL;
         return false;
     }
 
-    // Открываем файл для записи с помощью указателя fp_out. Режим 'w' (write) или 'a' (append), 'w' предпочтительнее для перезаписи 
+    // Открываем файл для записи с помощью указателя fp_out. $fp_out — это инструмент для работы с файлом: через него читаем/пишем, а потом закрываем
     $fp_out = fopen($targetFile, "w");
     if (!$fp_out) {
         echo "Ошибка: Не удалось открыть/создать файл **{$targetFile}** для записи." . PHP_EOL;
@@ -80,4 +78,5 @@ if ($lineCount !== false) {
 
 
 ?>
+
 
